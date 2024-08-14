@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from clean import clean_text
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
+import pickle
 
 CLASSES = ['ham','spam']
 
@@ -15,6 +16,9 @@ data = pd.read_csv('python/data/clean_data.csv')
 #dropping na values
 
 data = data.dropna()
+
+longest_sentence = data['Message'].apply(len).mean()
+print(f"The longest sentence is:\n{longest_sentence}")
 
 #extracting features and labels into numpy arrays
 
@@ -29,7 +33,7 @@ sequences = tokenizer.texts_to_sequences(features)
 
 #padding sequences to be of consistent length so that the model can accept them as input
 
-padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(sequences,maxlen = 20 , padding='post')
+padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(sequences,maxlen = 64 , padding='post')
 
 #printing padded sequences to make sure padding has been conducted correctly,each sentence should be of length 20
 
@@ -49,7 +53,7 @@ print(f'y test shape :{y_val.shape}')
 #Specifying model structure using keras's sequential api
 model = tf.keras.models.Sequential([
     tf.keras.Input(shape=(20,)),
-    tf.keras.layers.Embedding(input_dim=10000,output_dim=64,input_length = 20),
+    tf.keras.layers.Embedding(input_dim=10000,output_dim=64,input_length = 64),
     tf.keras.layers.LSTM(64,return_sequences=True,kernel_regularizer=tf.keras.regularizers.L2(0.001)),
     tf.keras.layers.LSTM(32,kernel_regularizer=tf.keras.regularizers.L2(0.001)),
     tf.keras.layers.Dense(32,activation='relu',kernel_regularizer=tf.keras.regularizers.L2(0.001)),
@@ -71,8 +75,8 @@ history =model.fit(
     x_train,
     y_train,
     validation_data = (x_val,y_val),
-    epochs = 10,
-    batch_size =32,
+    epochs = 15,
+    batch_size =64,
     verbose = 1
 )
 #Final validation score
@@ -122,9 +126,20 @@ test_sentences = [
 
 text_sentences = [clean_text(sentence) for sentence in test_sentences]
 test_sequences = tokenizer.texts_to_sequences(test_sentences)
-test_padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(test_sequences, maxlen=20, padding='post')
-
+test_padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(test_sequences, maxlen=64, padding='post')
+print(test_padded_sequences)
+print(f'shape : {test_padded_sequences.shape}')
 predictions = model.predict(test_padded_sequences)
+print(predictions)
 for sentence, prediction in zip(test_sentences, predictions):
     print(f"Sentence: {sentence}")
+    print()
     print(f"Prediction: {CLASSES[round(prediction[0])]}")
+    
+save = int(input("do you want so save the model ? yes (1) or no (0): "))
+if save==1:
+    version = 'v1'
+    model.export("python/model"+version)
+    
+    with open('python/tokenizer.pkl','wb') as handle:
+        pickle.dump(tokenizer,handle,protocol=pickle.HIGHEST_PROTOCOL)
