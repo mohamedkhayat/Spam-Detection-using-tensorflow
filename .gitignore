@@ -1,0 +1,34 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Conda environments
+env/
+.conda/
+*.conda
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA
+.idea/
+
+# Java files
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Other
+*.sqlite3
+*.db
