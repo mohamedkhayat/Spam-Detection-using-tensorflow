@@ -15,6 +15,10 @@ The **Spam Detection App** is a practical project designed to apply TensorFlow a
 - **Java:** For creating the frontend application.
 - **NLP Techniques:** Tokenization, stop-word removal, lemmatization, and text preprocessing.
 
+### Dataset
+
+The model is trained on the [Email Spam Detection Dataset](https://www.kaggle.com/datasets/shantanudhakadd/email-spam-detection-dataset-classification) from Kaggle. This dataset provides a collection of emails labeled as spam or not spam, used for training and evaluating the spam detection model.
+
 ### Learning Objectives
 
 - **NLP Model Development:** Gain hands-on experience with TensorFlow to develop and train NLP models for text classification.
@@ -23,4 +27,5 @@ The **Spam Detection App** is a practical project designed to apply TensorFlow a
 - **Integration Skills:** Connect a Java frontend with a Flask API to deliver a practical application.
 
 ### Project Impact
+
 This project provides practical experience in developing and deploying NLP models with TensorFlow, focusing on applying machine learning techniques to real-world problems.
