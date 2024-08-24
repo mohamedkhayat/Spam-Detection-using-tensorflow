@@ -8,6 +8,7 @@ __pycache__/
 env/
 .conda/
 *.conda
+target/
 
 # VS Code
 .vscode/
