@@ -36,6 +36,24 @@ The model demonstrates good performance on low-quality, low-effort spam. However
 
 ### **Instructions**
 
+## Dependencies
+
+This project requires the following Python packages:
+
+- **Flask**: For deploying the model as an API.
+- **TensorFlow**: For developing and training the spam detection model.
+- **NumPy**: For numerical operations and handling arrays.
+- **Pandas**: For data manipulation and analysis.
+- **Pickle**: For serializing and deserializing Python objects.
+- **NLTK**: For natural language processing tasks.
+- **Scikit-Learn**: For additional machine learning utilities and preprocessing.
+- **Seaborn**: For data visualization.
+
+You can install these dependencies using pip. Here’s a command to install all dependencies at once:
+
+```bash
+pip install Flask TensorFlow numpy pandas pickle5 nltk scikit-learn seaborn
+
 To use the model, run the following command in your terminal:
 
 ```bash
@@ -58,22 +76,4 @@ https://github.com/user-attachments/assets/e046f6c5-fdc4-4470-8773-6f221093ceea
 
 
 ![cm_v1](https://github.com/user-attachments/assets/d3f93c0a-17f1-4226-8a4e-7975f91d16fb)
-
-## Dependencies
-
-This project requires the following Python packages:
-
-- **Flask**: For deploying the model as an API.
-- **TensorFlow**: For developing and training the spam detection model.
-- **NumPy**: For numerical operations and handling arrays.
-- **Pandas**: For data manipulation and analysis.
-- **Pickle**: For serializing and deserializing Python objects.
-- **NLTK**: For natural language processing tasks.
-- **Scikit-Learn**: For additional machine learning utilities and preprocessing.
-- **Seaborn**: For data visualization.
-
-You can install these dependencies using pip. Here’s a command to install all dependencies at once:
-
-```bash
-pip install Flask TensorFlow numpy pandas pickle5 nltk scikit-learn seaborn
 
