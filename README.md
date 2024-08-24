@@ -34,6 +34,16 @@ This project provides practical experience in developing and deploying NLP model
 
 The model demonstrates good performance on low-quality, low-effort spam. However, it struggles with high-quality spam due to the training dataset’s focus on less sophisticated spam examples. This limitation highlights the need for additional training data with varied spam qualities to improve the model's robustness.
 
+### **Instructions**
+
+To use the model, run the following command in your terminal:
+
+```bash
+python python/app.py
+```
+
+Then run the executable, type the sentence you want to classify as spam or not spam, and the model will provide the classification result.
+
 ### **Video Demo**
 
 
