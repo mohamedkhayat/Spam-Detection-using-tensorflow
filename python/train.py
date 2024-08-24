@@ -2,7 +2,6 @@ import tensorflow as tf
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-from clean import clean_text
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import pickle
@@ -35,7 +34,8 @@ sequences = tokenizer.texts_to_sequences(features)
 
 padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(sequences,maxlen = 64 , padding='post')
 
-#printing padded sequences to make sure padding has been conducted correctly,each sentence should be of length 20
+#printing padded sequences to make sure padding has been conducted correctly
+#each sentence should be of length 20
 
 print(padded_sequences.shape)
 
@@ -52,25 +52,37 @@ print(f'y test shape :{y_val.shape}')
 
 #Specifying model structure using keras's sequential api
 model = tf.keras.models.Sequential([
-    tf.keras.Input(shape=(64,)),
-    tf.keras.layers.Embedding(input_dim=10000,output_dim=64,input_length = 64),
-    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64,return_sequences=True,kernel_regularizer=tf.keras.regularizers.L2(0.001))),
-    tf.keras.layers.Dropout(0.3),  # Dropout layer added
-    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32,kernel_regularizer=tf.keras.regularizers.L2(0.001))),
-    tf.keras.layers.Dropout(0.3),  # Dropout layer added
-    tf.keras.layers.Dense(32,activation='relu',kernel_regularizer=tf.keras.regularizers.L2(0.001)),
-    tf.keras.layers.Dense(1,activation='sigmoid')
+    tf.keras.Input(shape=(64,)), #input layer of shape 64 corresponding to the size of the padded sequences
+
+    tf.keras.layers.Embedding(input_dim=10000,output_dim=64,input_length = 64), #embedding of vocab size 10000, with input and output dim of 64 to extract semantic information from the sequences
+
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64,return_sequences=True, #bidirectional LSTM layer with 64 units
+                                                       kernel_regularizer=tf.keras.regularizers.L2(0.001))), #L2 regulirization to avoid overfitting on the training data
+
+    tf.keras.layers.Dropout(0.3), #dropout layer of p=0.3 to avoid over fitting and stabilize convergence
+
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32,  #second bidirectional LSTM layer with 32 units
+                                                       kernel_regularizer=tf.keras.regularizers.L2(0.001))),  #L2 regulirization to avoid overfitting on the training data
+
+    tf.keras.layers.Dropout(0.3),  #dropout layer of p=0.3 to avoid over fitting and stabilize convergence 
+
+    tf.keras.layers.Dense(32,activation='relu', #Hidden layer of 32 units and RELU activation function to add a little more complexity and depth to the model to hopefully converge to a lower loss
+                          kernel_regularizer=tf.keras.regularizers.L2(0.001)), #L2 regularization to avoid overfitting and stabilize convergence
+
+    tf.keras.layers.Dense(1,activation='sigmoid') #Output layer of 1 unit and sigmoid activation function for binary classification
 ])
 
 #printing a summary of the model to make sure all is well
 
 model.summary()
 
-#compiling the model while specifiying optimizer,learning rate,loss function and metrics to track while training
+#compiling the model while specifiying optimizer,learning rate,loss function 
+#and metrics to track while training
 
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),loss='binary_crossentropy',metrics=['accuracy'])
 
-#training the model on x_train and y_train and conducting validation using x_val and y_val for 10 epochs on batches of 32 examples
+#training the model on x_train and y_train and conducting validation using x_val and y_val 
+#for 10 epochs on batches of 32 examples
 #saving the accuracy loss and epochs to history for visualization later
 
 history =model.fit(
@@ -121,11 +133,14 @@ plt.ylabel('True Label')
 plt.title('Confusion Matrix')
 plt.show()
 
-save = int(input("do you want so save the model ? yes (1) or no (0): "))
+save = int(input("do you want so save the model ? yes (1) no (any key): "))
 if save==1:
+
+    #save the model
     version = 'v1'
     model.export("python/model"+version)
 
+    #save the tokenizer
     with open('python/tokenizer.pkl','wb') as handle:
         pickle.dump(tokenizer,handle,protocol=pickle.HIGHEST_PROTOCOL)
         print("tokenizer saved")

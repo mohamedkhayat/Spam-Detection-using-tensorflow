@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import nltk
 from nltk.corpus import stopwords
+
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
@@ -35,18 +36,12 @@ def clean_text(text,stop_words=stop_words):
 
 
 if __name__=='__main__':
+    #load csv file with the data
     spam_df = pd.read_csv("python/data/spam.csv")
-
-    print(spam_df.head())
-    print(spam_df.describe())
-    print(spam_df.isna().sum())
-
+    #encode ham to 0 and spam to 1 for binary classification
     spam_df['Category'] = spam_df['Category'].map({'ham' : 0,'spam' : 1})
+    #clean data
     spam_df['Message'] = spam_df['Message'].apply(clean_text)
-
-    print(spam_df.head())
-    print(spam_df.describe())
-    print(spam_df.isna().sum())
-
+    #save clean data to csv 
     spam_df.to_csv('data/clean_data.csv',index=False)
 
