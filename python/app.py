@@ -16,8 +16,8 @@ with open('python/tokenizer.pkl','rb') as handle:
     tokenizer = pickle.load(handle)
 
 def preprocess(text,tokenizer,max_len=64):
-    text = [clean_text(text)]
-    sequences = tokenizer.texts_to_sequences(text)
+    cleantext = [clean_text(sentence) for sentence in text]
+    sequences = tokenizer.texts_to_sequences(cleantext)
     padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(sequences,maxlen=max_len,padding='post')
     return padded_sequences
 
@@ -30,10 +30,8 @@ def predict():
             return jsonify({"error":'missing sentence field'}),500
     
         sentence = data.get('sentence')
-        print(sentence)
         try:
-            preprocessed_text = preprocess(sentence,tokenizer)
-            print(preprocessed_text)
+            preprocessed_text = preprocess([sentence],tokenizer)
         except Exception as e:
 
             return jsonify({"error":'Error pre processing sentence'}),500

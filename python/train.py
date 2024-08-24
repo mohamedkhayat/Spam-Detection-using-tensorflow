@@ -52,10 +52,12 @@ print(f'y test shape :{y_val.shape}')
 
 #Specifying model structure using keras's sequential api
 model = tf.keras.models.Sequential([
-    tf.keras.Input(shape=(20,)),
+    tf.keras.Input(shape=(64,)),
     tf.keras.layers.Embedding(input_dim=10000,output_dim=64,input_length = 64),
-    tf.keras.layers.LSTM(64,return_sequences=True,kernel_regularizer=tf.keras.regularizers.L2(0.001)),
-    tf.keras.layers.LSTM(32,kernel_regularizer=tf.keras.regularizers.L2(0.001)),
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64,return_sequences=True,kernel_regularizer=tf.keras.regularizers.L2(0.001))),
+    tf.keras.layers.Dropout(0.3),  # Dropout layer added
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32,kernel_regularizer=tf.keras.regularizers.L2(0.001))),
+    tf.keras.layers.Dropout(0.3),  # Dropout layer added
     tf.keras.layers.Dense(32,activation='relu',kernel_regularizer=tf.keras.regularizers.L2(0.001)),
     tf.keras.layers.Dense(1,activation='sigmoid')
 ])
@@ -75,8 +77,8 @@ history =model.fit(
     x_train,
     y_train,
     validation_data = (x_val,y_val),
-    epochs = 15,
-    batch_size =64,
+    epochs = 10,
+    batch_size =32,
     verbose = 1
 )
 #Final validation score
@@ -87,22 +89,22 @@ print(f'Validation Accuracy: {val_accuracy}')
 
 #plotting loss per epoch for validation and training loss
 
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
+plt.plot(history.history['loss'],color='blue',label='train')
+plt.plot(history.history['val_loss'],color="red",label='val')
 plt.title('train/val loss')
 plt.xlabel('Epoch')
 plt.ylabel("loss")
-plt.legend(["train,val"])
+plt.legend()
 plt.show()
 
 #plotting accuracy per epoch for validation and training loss
 
-plt.plot(history.history['accuracy'])
-plt.plot(history.history['val_accuracy'])
+plt.plot(history.history['accuracy'],color="blue",label="train")
+plt.plot(history.history['val_accuracy'],color="red",label="val")
 plt.title("train/val Accuracy")
 plt.xlabel('Epoch')
 plt.xlabel('Accuracy')
-plt.legend(['train,val'])
+plt.legend()
 plt.show()
 
 #getting predicted labels on validation set for confusion matrix
@@ -119,27 +121,12 @@ plt.ylabel('True Label')
 plt.title('Confusion Matrix')
 plt.show()
 
-test_sentences = [
-    "Hi, just checking in to see how you're doing. Let's catch up soon!",
-    "Congratulations! You've won a $1000 gift card. Click here to claim your prize now!"
-]
-
-text_sentences = [clean_text(sentence) for sentence in test_sentences]
-test_sequences = tokenizer.texts_to_sequences(test_sentences)
-test_padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(test_sequences, maxlen=64, padding='post')
-print(test_padded_sequences)
-print(f'shape : {test_padded_sequences.shape}')
-predictions = model.predict(test_padded_sequences)
-print(predictions)
-for sentence, prediction in zip(test_sentences, predictions):
-    print(f"Sentence: {sentence}")
-    print()
-    print(f"Prediction: {CLASSES[round(prediction[0])]}")
-    
 save = int(input("do you want so save the model ? yes (1) or no (0): "))
 if save==1:
     version = 'v1'
     model.export("python/model"+version)
-    
+
     with open('python/tokenizer.pkl','wb') as handle:
         pickle.dump(tokenizer,handle,protocol=pickle.HIGHEST_PROTOCOL)
+        print("tokenizer saved")
+        

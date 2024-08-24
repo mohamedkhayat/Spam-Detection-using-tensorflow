@@ -1,0 +1,22 @@
+#bPane {
+    -fx-background-color: linear-gradient(to bottom right, #F06292, #E53935);
+    -fx-padding: 20px;
+    -fx-border-color: #FF0000;
+    -fx-border-width: 3px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);
+}
+
+
+#backButton, #helpButton {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #E53935;
+    -fx-font-size: 14px;
+    -fx-border-color: #C62828;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.5, 0, 0);
+}
+
+#backButton:hover {
+    -fx-background-color: #FFAB91;
+    -fx-border-color: #FF5722;
+}

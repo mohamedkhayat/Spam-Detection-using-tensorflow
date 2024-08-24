@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+
+<BorderPane fx:id="bPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" stylesheets="@Help.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohamedkhayat.spamdetector.HelpController">
+   <right>
+      <VBox maxHeight="700.0" maxWidth="500.0" prefHeight="700.0" prefWidth="244.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label maxWidth="300.0" prefHeight="20.0" prefWidth="300.0" text="Explanation of the Deep Learning Model">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label prefHeight="120.0" prefWidth="244.0" text="This deep learning model is designed for text classification, specifically for identifying spam messages. It utilizes a Recurrent Neural Network (RNN) architecture, which is well-suited for handling sequential data, such as text." wrapText="true" />
+            <Label prefHeight="20.0" prefWidth="250.0" text="Pipeline Overview:" />
+            <Label prefWidth="250.0" text="Tokenization and Padding:" />
+            <Label prefHeight="50.0" prefWidth="230.0" text="Text data is tokenized into numerical tokens for the model to process." wrapText="true" />
+            <Label prefHeight="64.0" prefWidth="244.0" text="Sequences are padded to a fixed length of 64, ensuring consistency for neural network input." wrapText="true" />
+            <Label prefHeight="9.0" prefWidth="244.0" text="Model Structure:" wrapText="true" />
+            <Label prefHeight="63.0" prefWidth="219.0" text="Embedding Layer: Converts tokens into dense vectors, capturing the semantic meaning of words." wrapText="true" />
+            <Label prefHeight="70.0" prefWidth="250.0" text="LSTM Layers: Two LSTM layers process the sequences, capturing long-term dependencies and relationships in the text." wrapText="true" />
+            <Label prefHeight="66.0" prefWidth="244.0" text="Dense Layer: A layer with ReLU activation adds non-linearity, enabling the model to learn complex patterns." wrapText="true" />
+            <Label prefHeight="65.0" prefWidth="244.0" text="Output Layer: A final layer with a sigmoid activation outputs the probability of the input being spam." wrapText="true" />
+            <Label prefHeight="20.0" prefWidth="250.0" text="Model Purpose:" wrapText="true" />
+            <Label prefHeight="83.0" prefWidth="244.0" text="The model classifies text messages as spam or not, using LSTM layers to understand the context and sequence of words for accurate predictions." wrapText="true" />
+         </children>
+         <BorderPane.margin>
+            <Insets top="-20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </right>
+   <left>
+      <VBox maxWidth="300.0" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="450.0" text="Demo">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Label>
+            <MediaView fx:id="medview" fitHeight="400.0" fitWidth="500.0" y="10.0">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </MediaView>
+         </children>
+         <BorderPane.margin>
+            <Insets left="-15.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <Button fx:id="backButton" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="30.0" prefWidth="60.0" text="Back" BorderPane.alignment="TOP_LEFT">
+         <BorderPane.margin>
+            <Insets left="-15.0" top="-15.0" />
+         </BorderPane.margin></Button>
+   </top>
+</BorderPane>
