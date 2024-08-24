@@ -36,8 +36,6 @@ The model demonstrates good performance on low-quality, low-effort spam. However
 
 ### **Instructions**
 
-## Dependencies
-
 This project requires the following Python packages:
 
 - **Flask**: For deploying the model as an API.
@@ -53,7 +51,7 @@ You can install these dependencies using pip. Here’s a command to install all 
 
 ```bash
 pip install Flask TensorFlow numpy pandas pickle5 nltk scikit-learn seaborn
-
+```
 To use the model, run the following command in your terminal:
 
 ```bash
