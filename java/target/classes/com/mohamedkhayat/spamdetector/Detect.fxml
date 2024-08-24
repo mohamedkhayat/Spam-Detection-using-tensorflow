@@ -21,7 +21,7 @@
             <Font name="Lato Regular" size="36.0" />
          </font>
       </Label>
-      <TextArea fx:id="inputField" layoutX="97.0" layoutY="445.0" prefHeight="125.0" prefWidth="600.0" />
+      <TextArea fx:id="inputField" layoutX="100.0" layoutY="450.0" prefHeight="150.0" prefWidth="600.0" />
       <Button fx:id="backButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="30.0" prefWidth="60.0" text="Back" />
    </children>
 </AnchorPane>

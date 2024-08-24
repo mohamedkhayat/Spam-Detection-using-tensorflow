@@ -1,9 +1,7 @@
 package com.mohamedkhayat.spamdetector;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +24,7 @@ public class AppController {
         }
     }
     public void openDetect(javafx.scene.input.MouseEvent event) throws IOException {
-        FXMLLoader detectLoader = new FXMLLoader(getClass().getResource("detect.fxml"));
+        FXMLLoader detectLoader = new FXMLLoader(getClass().getResource("Detect.fxml"));
         Scene detectScene = new Scene(detectLoader.load());
         DetectController controller= detectLoader.getController();
         controller.SetPrimaryStage(primaryStage);

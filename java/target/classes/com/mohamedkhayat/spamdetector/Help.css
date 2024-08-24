@@ -1,4 +1,4 @@
-#bPane {
+#pane {
     -fx-background-color: linear-gradient(to bottom right, #F06292, #E53935);
     -fx-padding: 20px;
     -fx-border-color: #FF0000;
@@ -7,7 +7,7 @@
 }
 
 
-#backButton, #helpButton {
+#backButton {
     -fx-background-color: #FFEBEE;
     -fx-text-fill: #E53935;
     -fx-font-size: 14px;
@@ -19,4 +19,33 @@
 #backButton:hover {
     -fx-background-color: #FFAB91;
     -fx-border-color: #FF5722;
+}
+
+
+#titleLabel {
+    -fx-font-family: Lato;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #C62828;
+    -fx-background-color: #FFEBEE;
+    -fx-border-color: #C62828;
+    -fx-background-radius: 10px;
+    -fx-padding: 20px 30px;
+    -fx-border-width: 3px;
+}
+.descriptionLabel,.modelDescription {
+    -fx-font-family: Lato;
+    -fx-font-size: 12px;                 /* Slightly larger font for readability */
+    -fx-text-fill: #666666;              /* Medium gray text color for contrast and softness */
+    -fx-padding: 5px;                  /* Padding around the text for better spacing */
+    -fx-alignment: CENTER;              /* Center-align text for balanced appearance */
+    -fx-wrap-text: true;                /* Ensure text wraps within the label */
+    -fx-background-color: #FFEBEE;      /* Light pink background for consistency with the button background */
+    -fx-background-radius: 8px;         /* Rounded corners for a softer look */
+    -fx-border-color: #C62828;          /* Darker red border to complement the title label */
+    -fx-border-width: 2px;              /* Subtle border for definition */
+    -fx-border-radius: 8px;             /* Rounded corners for the border */
+}
+.modelDescription{
+    -fx-font-size:16px;
 }
